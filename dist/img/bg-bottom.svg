@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="1110px" height="99px" viewBox="0 0 1110 99" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 52.5 (67469) - http://www.bohemiancoding.com/sketch -->
+    <title>index@2x</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="linearGradient-1">
+            <stop stop-color="#FFFFFF" stop-opacity="0.08" offset="0%"></stop>
+            <stop stop-color="#FFFFFF" stop-opacity="0" offset="100%"></stop>
+        </linearGradient>
+        <linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="linearGradient-2">
+            <stop stop-color="#FFFFFF" stop-opacity="0.1" offset="0%"></stop>
+            <stop stop-color="#FFFFFF" stop-opacity="0" offset="100%"></stop>
+        </linearGradient>
+    </defs>
+    <g id="index" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="sec2-bg.70d33ebdc020333a626b636611e4e203-(1)" transform="translate(555.000000, 49.500000) scale(1, -1) translate(-555.000000, -49.500000) ">
+            <path d="M31.2293578,52.8226027 C31.2293578,52.8226027 103.200807,0.301746575 155.378275,0.301746575 C207.555743,0.301746575 220.515248,65.1440342 283.866716,65.1440342 C347.22022,65.1440342 372.816073,34.6561027 443.720294,34.6561027 C514.623156,34.6561027 553.068532,66.6737877 623.968,66.5205411 C694.867468,66.3672945 839.631156,21.3982397 933.327376,26.8391712 C1027.02224,32.2807808 1109.61506,76.4747877 1109.61506,76.4747877 L1109.61506,98.1028973 L31.2293578,98.1028973" id="路径" fill="url(#linearGradient-1)"></path>
+            <path d="M0,65.8526301 C0,65.8526301 78.2566972,30.0919315 174.728257,30.0919315 C271.201174,30.0919315 343.251376,71.6041233 438.95578,71.6041233 C534.662899,71.6041233 635.144037,30.0919315 716.245321,30.0919315 C797.346606,30.0919315 834.320807,74.7877192 923.126239,75.0108082 C978.148972,75.149137 1033.94429,50.3489589 1033.27354,50.3489589 C1032.60279,50.3489589 1033.27953,98.7965753 1033.27953,98.7965753 L0,98.7965753 L0,65.8526301 Z" id="路径" fill="url(#linearGradient-2)"></path>
+        </g>
+    </g>
+</svg>

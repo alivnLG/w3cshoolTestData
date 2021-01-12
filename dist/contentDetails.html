@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="user-scalable=no, width=device-width, initial-scale=1, maximum-scale=1"
+    />
+    <title>metaml</title>
+    <link rel="icon" href="/favicon.png" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/vuetify@1.5.14/dist/vuetify.min.css"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/katex@0.10.2/dist/katex.min.css"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/@mdi/font@2.8.94/css/materialdesignicons.min.css"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="https://at.alicdn.com/t/font_803619_fg6ux2y0je8.css"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="./css/stack-edit.css"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="./css/content-details.css"
+      crossorigin="anonymous"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.js"></script>
+  
+  </head>
+
+  <style>
+    html {
+      overflow: unset;
+      font-size: 16px;
+    }
+  </style>
+
+  <body>
+    <div id="app">
+      <div class="shared-asset-not" v-if="sharedAsset">
+        <div class="not-content">
+          <div class="text">
+            <h3 v-text="trans.shareErrTextOne"></h3>
+            <span v-text="trans.shareErrTextTwo"></span>
+          </div>
+          <div class="ico">
+            <img src="/img/rob.png" />
+          </div>
+        </div>
+      </div>
+      <div v-else>
+        <div class="m-headrt-top">
+          <div class="content" :class="{'width-58-75': commentListShow}">
+            <div class="last-time" v-if="expermentCreatorInfo">
+              <img
+                class="img"
+                v-if="expermentCreatorInfo.avatar"
+                :src="expermentCreatorInfo.avatar"
+              />
+              {{expermentCreatorInfo.username}} {{trans.createdIn}}
+              <span>
+                <span
+                  v-if="type === 'share'"
+                  v-text="shareCreatedAtTime"
+                ></span>
+                <span v-else v-text="createdAtTime"></span>
+              </span>
+            </div>
+            <div class="share" v-show="type !== 'Idea'">
+              <div class="share-btn" @click="onCopy">
+                <span class="iconfont icon-fenxiang2"></span>
+                {{trans.shareOrExport}}
+              </div>
+            </div>
+            <div class="read" v-if="!commentListShow">
+              <div class="all-read-btn" @click="allRead">
+                {{trans.markAllRead}}
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="node-list-layout">
+          <div class="shared-empty-page" v-if="emptyPage"></div>
+          <div
+            class="shared-asset shared-asset-content"
+            :class="{'width-58-75': commentListShow}"
+          >
+            <div
+              class="node-content m-node-content"
+              id="nodeContent"
+              @click="clickContent"
+            >
+              <!-- 评论按钮 -->
+              <div
+                class="comments-box"
+                @click="createComments('btn')"
+                v-show="commentsBoxShow"
+              >
+                <div class="iconfont icon-pinglun"></div>
+              </div>
+
+              <!-- 创建评论 -->
+              <div class="create-comment">
+                <comment-card
+                  type="ProjectExperiment"
+                  :comment="comment"
+                  :targetid="experimentId"
+                  @comment="updateComment($event)"
+                  :ability="ability"
+                  :contributorslist="projectContributors"
+                ></comment-card>
+              </div>
+              <div
+                class="m-share-content"
+                id="m-share-content"
+                @dblclick.stop="clickContent"
+                @contextmenu.prevent="contextmenu"
+                @mousedown.stop="mousedown"
+                @mouseup.stop.prevent="mouseup"
+              >
+                <div class="width-1240">
+                  <div
+                    class="item-content-experment mt-4"
+                    v-if="type !== 'share'"
+                  >
+                    <div class="item-group text-center">
+                      <span class="text-title time"
+                        >{{trans.UpdatedIn}} <span v-text="updatedAtTime"></span
+                      ></span>
+                    </div>
+                  </div>
+                  <h2 class="title title-text text-center mt-4 mb-3">
+                    <span v-if="type === 'Idea'" style="color: #ffa000;">
+                      #<span v-text="contentObj.code"></span>
+                    </span>
+                    <span v-text="contentObj.title"></span>
+                  </h2>
+
+                  <div class="item-team">
+                    <div
+                      class="item-team-title text-center mt-4 font-normal"
+                      v-if="type !== 'Idea'"
+                    >
+                      <div
+                        :class="'font-weight text-uppercase font-15 ' + contentObj.status"
+                        v-text="contentObj.status"
+                      ></div>
+                      <div
+                        v-if="trans.experimentStatus"
+                        v-text="trans.experimentStatus"
+                      ></div>
+                    </div>
+                    <div class="pt-2">
+                      <div
+                        class="stack-edit-container"
+                        style="font-size: 1rem;"
+                      >
+                        <div
+                          @click="aOnClick"
+                          v-html="contentPreviewHtml"
+                        ></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="m-node-comments-list" v-if="!commentListShow">
+              <ul class="comments-list-ul">
+                <li
+                  v-for="(item,index) in commentList"
+                  :key="index"
+                  @click="commentClick(item.id)"
+                  :class="{'active': item.active, 'opacity': item.opacity, 'assign': item.assign}"
+                >
+                  <comment-card
+                    type="Comment"
+                    :comment="item"
+                    :ability="ability"
+                    @comment="updateComment($event)"
+                    :targetid="experimentId"
+                    :contributorslist="projectContributors"
+                  ></comment-card>
+                </li>
+              </ul>
+            </div>
+            <div class="share-tips" :class="{'active':shareTipsActive}">
+              <div v-text="tipText"></div>
+            </div>
+            <div class="ideas-tips-mouseover">
+              <div class="ideas-item-hover">
+                <div class="ideas-content-box project-des-tooltip">
+                  <div class="ideas-title">
+                    <div class="ideas-title-text">
+                      #<span v-text="tipsContentObj.code"></span>
+                      <span v-text="tipsContentObj.title"></span>
+                    </div>
+                  </div>
+                  <div class="ideas-content">
+                    <div class="ideas-content-html mt-2">
+                      <div class="ideas-list-content-innertext">
+                        <div
+                          class="innertext"
+                          v-html="ideasContentInnerTextFun"
+                        ></div>
+                      </div>
+                    </div>
+                    <div class="time" v-text="tipsTime"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div id="menu" v-show="menuShow">
+          <div class="menu" @click="createComments('menu')">
+            <div class="iconfont icon-pinglun"></div>
+            <div class="" v-text="trans.comment"></div>
+          </div>
+          <div class="menu">
+            <div class="iconfont icon-fenxiang2"></div>
+            <div class="" v-text="trans.shareOrExport"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script
+      src="https://cdn.jsdelivr.net/npm/jquery@3.4.1/dist/jquery.min.js"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/moment@2.24.0/moment.js"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/lodash@4.17.11/lodash.min.js"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/moment@2.24.0/locale/zh-cn.js"
+      crossorigin="anonymous"
+    ></script>
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/axios@0.18.0/dist/axios.min.js"
+      crossorigin="anonymous"
+    ></script>
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/vue-clipboard2@0.3.1/dist/vue-clipboard.min.js"
+      crossorigin="anonymous"
+    ></script>
+    <script type="text/javascript">
+
+      let baseURL = '';
+
+      $.ajax({
+        url:`https://metaml.io/api?env=production&debug=false`,
+        async: false,
+        type: "GET",
+        success: res => {
+          baseURL = res.VUE_APP_API_SERVER_URL;
+        },
+        error: err => {
+          console.log(err)
+        }
+      });
+    </script>
+
+    <script src="./js/commentCard.js"></script>
+
+    <script src="./js/contentDetails.js"></script>
+  </body>
+</html>

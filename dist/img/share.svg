@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="110px" height="110px" viewBox="0 0 110 110" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 52.5 (67469) - http://www.bohemiancoding.com/sketch -->
+    <title>  @2x</title>
+    <desc>Created with Sketch.</desc>
+    <g id="--" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" stroke-linecap="round">
+        <g id="features-hero-project-management" transform="translate(-66.000000, -218.000000)" stroke="#D7D7D7" stroke-width="3">
+            <path d="M0.64,368.1 L0.64,339.1 C0.64,328.728092 9.0480924,320.32 19.42,320.32 L104.48,320.32 C114.851908,320.32 123.26,311.911908 123.26,301.54 L123.17,298 M84.37,275.5 L38.53,275.5 M93.28,256.13 L75.46,256.13 M186.41,237.38 L146.28,237.38" id="形状"></path>
+            <circle id="椭圆形" cx="89.38" cy="275.5" r="5.01"></circle>
+            <rect id="矩形" transform="translate(123.180000, 275.510000) rotate(-180.000000) translate(-123.180000, -275.510000) " x="109.32" y="261.65" width="27.72" height="27.72" rx="3"></rect>
+            <path d="M123.26,253.13 L123.26,127.25 C123.265489,116.897597 131.647619,108.502048 142,108.48 L223.65,108.48 C228.635962,108.487965 233.420439,106.51288 236.948863,102.990083 C240.477287,99.4672864 242.460006,94.6859679 242.46,89.7 L243,0.64" id="路径"></path>
+        </g>
+    </g>
+</svg>

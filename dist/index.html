@@ -1,0 +1,110 @@
+<!DOCTYPE html><html><head><meta charset=utf-8><meta name=viewport content="user-scalable=no,width=device-width,initial-scale=1,maximum-scale=1"><link rel=icon href=/favicon.png><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/@mdi/font@2.8.94/css/materialdesignicons.min.css crossorigin=anonymous><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.css crossorigin=anonymous><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/vuetify@1.5.14/dist/vuetify.min.css crossorigin=anonymous><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/katex@0.10.2/dist/katex.min.css crossorigin=anonymous><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/vue-croppa@1.3.8/dist/vue-croppa.min.css crossorigin=anonymous><link rel=stylesheet href=https://at.alicdn.com/t/font_803619_fg6ux2y0je8.css crossorigin=anonymous><title>metaML</title><style>body {
+      background-color: #f3f3f4;
+    }
+
+    body * {
+      box-sizing: border-box;
+    }
+
+    .loading-dom {
+      display: none;
+    }
+    .pubilc-footer {
+      opacity: 0;
+      position: fixed;
+      background: rgba(75, 75, 75, 0.93);
+      height: auto;
+      left: 0;
+      width: 100%;
+      z-index: 100000000 !important;
+      color: #fff;
+      font-size: 1rem;
+      line-height: 1.125rem;
+      border-bottom: 0;
+      bottom: 0;
+      top: auto;
+    }
+    .pubilc-footer .content {
+      position: relative;
+    }
+    .pubilc-footer .content .text {
+      margin: 0 auto;
+      max-width: 62.5rem;
+      padding: 1.5rem 1.25rem;
+      box-sizing: border-box !important;
+      margin: 0 auto;
+      text-align: center;
+    }
+    .pubilc-footer .content .close {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      cursor: pointer;
+    }
+    .pubilc-footer .content .close:hover {
+      color: #ff6344;
+    }
+    .pubilc-footer .content .font-weight {
+      font-weight: bold;
+    }
+    .pubilc-footer.hide {
+      display: none;
+      opacity: 0;
+    }
+    .pubilc-footer.show {
+      display: block;
+      opacity: 1;
+    }</style><link href=/css/extensions.45ed6d11.css rel=stylesheet><link href=/css/app.5085dc92.css rel=stylesheet></head><body><div class="loadingsvg loading-dom"><div class="spinner spinner--rotate-square-2" style=width:40px;height:40px></div></div><div class=pubilc-footer><div class=content><div class=text>For a better browsing experience, Google Chrome is recommended!</div><div class=close><span class="mdi mdi-close"></span></div></div></div><div id=app></div><script src=https://cdn.jsdelivr.net/npm/jquery@3.4.1/dist/jquery.min.js crossorigin=anonymous></script><script>window.onload = function () {
+      //Pages load static resources for the first time, submit relevant data to the log server, and do not submit the log if it is retrieved from the cache.
+      let entries = window.performance.getEntries();
+      let staticEntries = entries.filter(x => {
+        return (
+          (x.initiatorType === 'script' ||
+            x.initiatorType === 'link' ||
+            x.initiatorType === 'css' ||
+            x.initiatorType === 'img') &&
+          x.transferSize > 0
+        );
+      });
+      let payloadArry = []
+      for (let i = 0; i < staticEntries.length; i++) {
+        let itemData = {
+          url: staticEntries[i].name,
+          duration: staticEntries[i].duration,
+          transferSize: staticEntries[i].transferSize
+        }
+        payloadArry.push(itemData)
+      }
+      let payload = {
+        topic: 'firstLoading',
+        payloadArry: payloadArry
+      }
+      setLog(payload)
+    };
+
+    $(document).ready(function () {
+      var vueStore = document.querySelector('[data-app]') ?
+        document.querySelector('[data-app]').__vue__ :
+        false;
+      //User's mouse behavior on the page, submit relevant data to the log server, note that Vue events using. stop modifier and CSS using pointer-events: none will not capture.
+      
+      setTimeout(() => {
+        if (
+          !vueStore ||
+          vueStore.$store.getters['settings/loadingPageIsopen']
+        ) {
+          vueStore.$store.commit('settings/openGlobalLoadingPage');
+        }
+      }, 100);
+
+      let language = ( navigator.language || navigator.browserLanguage ).toLowerCase();
+      let fotterText = language === 'zh-cn' ? '为了更好的浏览体验，建议使用谷歌浏览器！' : `For a better browsing experience, <span class="font-weight">Google Chrome</span> is recommended!`;
+      $(".pubilc-footer .content .text").html(fotterText);
+      
+      let publicFooterOpen = localStorage.getItem("pubilcFooter");
+      publicFooterOpen === 'hide' ? $('.pubilc-footer').removeClass('show').addClass('hide') :  $('.pubilc-footer').removeClass('hide').addClass('show')
+      $('.pubilc-footer .close').click(function(){
+        $(this).parents('.pubilc-footer').hide();
+        localStorage.setItem("pubilcFooter", "hide");
+      })
+    });</script><script src=https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.js crossorigin=anonymous></script><script src=https://cdn.jsdelivr.net/npm/vuetify@1.5.14/dist/vuetify.min.js crossorigin=anonymous></script><script src=https://cdn.jsdelivr.net/npm/vee-validate@2.2.7/dist/vee-validate.min.js crossorigin=anonymous></script><script src=https://cdn.jsdelivr.net/npm/moment@2.24.0/moment.js crossorigin=anonymous></script><script src=https://cdn.jsdelivr.net/npm/moment@2.24.0/locale/zh-cn.js crossorigin=anonymous></script><script src=https://cdn.jsdelivr.net/npm/numeral@2.0.6/numeral.js crossorigin=anonymous></script><script src=https://cdn.jsdelivr.net/npm/lodash@4.17.11/lodash.min.js crossorigin=anonymous></script><script src=https://cdn.jsdelivr.net/npm/d3@5.9.2/dist/d3.min.js crossorigin=anonymous></script><script src=https://cdn.jsdelivr.net/npm/katex@0.10.2/dist/katex.min.js crossorigin=anonymous></script><script src=https://cdn.jsdelivr.net/npm/html2canvas@1.0.0-rc.1/dist/html2canvas.min.js crossorigin=anonymous></script><script src=https://cdn.jsdelivr.net/npm/js-yaml@3.13.1/dist/js-yaml.min.js crossorigin=anonymous></script><script src=https://cdn.jsdelivr.net/npm/vue-croppa@1.3.8/dist/vue-croppa.min.js crossorigin=anonymous></script><script src=https://cdn.jsdelivr.net/npm/sortablejs@1.9.0/Sortable.min.js crossorigin=anonymous></script><script src=https://cdn.jsdelivr.net/npm/vuedraggable@2.20.0/dist/vuedraggable.umd.min.js crossorigin=anonymous></script><script src=https://cdn.jsdelivr.net/npm/vue-router@3.0.6/dist/vue-router.min.js crossorigin=anonymous></script><script src=https://cdn.jsdelivr.net/npm/vuex@3.1.1/dist/vuex.min.js crossorigin=anonymous></script><script src=https://cdn.jsdelivr.net/npm/axios@0.18.0/dist/axios.min.js crossorigin=anonymous></script><script src=https://cdn.jsdelivr.net/npm/vue-i18n@8.11.2/dist/vue-i18n.min.js crossorigin=anonymous></script><script src=https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.js crossorigin=anonymous></script><script src=https://cdn.jsdelivr.net/npm/dom-to-image@2.6.0/src/dom-to-image.js crossorigin=anonymous></script><script src=/js/aliyun-loghub-tracking.js async></script><script src=/js/markdown-it.76175e47.js></script><script src=/js/stackEditor.6116660b.js></script><script src=/js/extensions.d085cc50.js></script><script src=/js/app.928ad67d.js></script><script src=/js/index.74e0c35e.js></script></body></html>
